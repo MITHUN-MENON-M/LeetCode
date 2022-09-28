@@ -88,3 +88,571 @@ class Solution {
         
     }
 }
+
+
+-------------------------------------------------------------------------------------------------------------
+
+1. Two Sum
+code:
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        int []arr;
+        arr = new int[2];
+        for(int i=0;i<nums.length;i++){
+            for(int j=i+1;j<nums.length;j++){
+                if(nums[i]+nums[j]==target){
+                    arr[0] = i;
+                    arr[1] = j;
+                    // System.out.println(nums[i]+nums[j]);
+                }
+            }
+        }
+        return arr;
+    }
+}
+
+
+9. Palindrome Number
+code:
+class Solution {
+    public boolean isPalindrome(int x) {
+        int y = x;
+        int temp = 0;
+        if(x<0)
+            return false;
+        while(y>0){
+            temp = (temp*10)+ y%10;
+            y/=10;
+        }
+        if(temp==x)
+            return true;
+        else
+            return false;
+    }
+}
+
+
+21. Merge Two Sorted Lists
+code:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        ListNode* dummynode = new ListNode;
+        ListNode* l1p = list1;
+        ListNode* l2p = list2;
+        ListNode* p3 = dummynode;
+        if(l1p==NULL)
+            return l2p;
+        else if(l2p==NULL)
+            return l1p;
+        while(l1p != NULL && l2p != NULL){
+            if(l1p->val<=l2p->val){
+                p3->next = l1p;
+                l1p = l1p->next;
+            }
+            else{
+                p3->next = l2p;
+                l2p = l2p->next;
+            }
+            p3 = p3->next;
+        }
+        while(l1p!=NULL){
+            p3->next = l1p;
+            l1p = l1p->next;
+            p3 = p3->next;
+        }
+        while(l2p!=NULL){
+            p3->next = l2p;
+            l2p = l2p->next;
+            p3 = p3->next;
+        }
+        return dummynode->next;
+    }
+};
+
+
+35. Search Insert Position
+code:
+class Solution {
+    public int searchInsert(int[] nums, int target) {
+        int j=nums.length;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]==target){
+                j=i;
+                return j;
+            }
+            else if(nums[i]>target){
+                j=i;
+                return j;
+            }
+        }
+        return j;
+    }
+}
+
+
+94. Binary Tree Inorder Traversal
+code:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void help(TreeNode* root,vector<int> &vec){
+        if(root==NULL)
+            return ;
+        help(root->left,vec);
+        vec.push_back(root->val);
+        help(root->right,vec);
+    }
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> vec;
+        help(root,vec);
+        
+        return vec;
+    }
+};
+
+
+100. Same Tree
+code:
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null && q == null) {
+            return true;
+        }
+        return (p != null && q != null) && (p.val == q.val) && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+        
+    }
+}
+
+
+101. Symmetric Tree
+code:
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+
+class Solution {
+    public boolean flag = true;
+    public void check_tree(TreeNode lef,TreeNode rig){
+        if(lef!=null && rig==null)
+            flag = false;
+        if(rig!=null && lef==null)
+            flag = false;
+        if(lef==null || rig==null)
+            return;
+        if(lef.val!=rig.val)
+            flag = false;
+        check_tree(lef.left,rig.right);
+        check_tree(lef.right,rig.left);
+    }
+    public boolean isSymmetric(TreeNode root) {
+        check_tree(root.left,root.right);
+        return flag;
+    }
+}
+
+
+104. Maximum Depth of Binary Tree
+code:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if(root==NULL){
+            return 0;
+        }
+        return 1+max(maxDepth(root->left),maxDepth(root->right));
+    }
+};
+
+
+112. Path Sum
+code:
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        if root is None:
+            return None
+        else:
+            if(root.left is None and root.right is None):
+                if targetSum - root.val == 0:
+                    return True
+            return self.hasPathSum(root.left, targetSum-root.val) or self.hasPathSum(root.right, targetSum-root.val)
+           
+        
+        
+        
+in java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean flag = false;
+    public int sum=0;
+    public void trav(TreeNode r, int tar){
+        if(r==null)
+            return;
+        sum+=r.val;
+        if(sum==tar && r.left==null && r.right==null){
+            flag = true;
+            return;
+        }
+        trav(r.left,tar);
+        trav(r.right,tar);
+        sum-=r.val;
+            
+    }
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        trav(root,targetSum);
+        return flag;
+    }
+}
+
+
+141. Linked List Cycle
+code:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        ListNode* curr = head;
+        ListNode* prev;
+        ListNode* dummy = new ListNode;
+        while(curr!=NULL && curr->next!=NULL){
+            prev = curr;
+            curr= curr->next;
+            prev->next = dummy;
+            if(curr->next==dummy)
+                return true;
+        }
+        return false;
+    }
+};
+
+
+
+144. Binary Tree Preorder Traversal
+code:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void rec(TreeNode* root,vector<int> &vec){
+        if(root==NULL){
+            return ;
+        }
+        vec.push_back(root->val);
+        rec(root->left,vec);
+        rec(root->right,vec);
+    }
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> vec;
+        rec(root,vec);
+        return vec;
+    }
+};
+
+
+
+206. Reverse Linked List
+code:
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+        ListNode next;
+        while(curr!=null){
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+}
+
+
+
+226. Invert Binary Tree
+code:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        TreeNode* temp = new TreeNode;
+        if(root==NULL)
+            return NULL;
+        temp = root->right;
+        root->right = root->left;
+        root->left = temp;
+        invertTree(root->left);
+        invertTree(root->right);
+        return root;
+    }
+};
+
+
+234. Palindrome Linked List
+code:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        ListNode* chk = head;
+        ListNode* s = head;
+        ListNode* f = head;
+        while(f->next!=NULL && f->next->next!=NULL){
+            s=s->next;
+            f=f->next->next;
+        }
+        ListNode* prev = NULL;
+        ListNode* curr = s->next;
+        ListNode* next;
+        while(curr!=NULL){
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+        while(prev!=NULL){
+            if(prev->val!=chk->val)
+                return false;
+            prev=prev->next;
+            chk=chk->next;
+        }
+        return true;
+    }
+};
+
+
+617. Merge Two Binary Trees
+code:
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
+        if(root1 ==  null)
+            return root2;
+        if(root2 == null)
+            return root1;
+        TreeNode node = new TreeNode(root1.val+root2.val);
+        node.left = mergeTrees(root1.left,root2.left);
+        node.right = mergeTrees(root1.right,root2.right);
+        
+        
+        return node;
+    }
+}
+
+
+872. Leaf-Similar Trees
+code:
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+import java.util.*;
+class Solution {
+    public Vector<Integer> tr1 = new Vector<>();
+    public Vector<Integer> tr2 = new Vector<>();
+    public void rect1(TreeNode root){
+        if(root == null)
+            return;
+        if(root.left==null && root.right==null){
+            tr1.add(root.val);
+        }
+        rect1(root.left);
+        rect1(root.right);
+    }
+    public void rect2(TreeNode root){
+        if(root == null)
+            return;
+        if(root.left==null && root.right==null){
+            tr2.add(root.val);
+        }
+        rect2(root.left);
+        rect2(root.right);
+    }
+    public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        rect1(root1);
+        rect2(root2);
+        if(tr1.size()!=tr2.size())
+            return false;
+        for(int i=0;i<tr1.size();i++){
+            if(tr1.get(i)!=tr2.get(i))
+                return false;
+        }
+        return true;
+    }
+}
+
+
+876. Middle of the Linked List
+code:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode* s = head;
+        ListNode* f = head;
+        while(f!=NULL && f->next!=NULL){
+            f=f->next;
+            f=f->next;
+            s=s->next;
+        }
+        return s;
+    }
+};
