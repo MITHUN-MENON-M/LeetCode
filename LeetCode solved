@@ -1,0 +1,47 @@
+1448. Count Good Nodes in Binary Tree
+code:
+// *
+//  * Definition for a binary tree node.
+//  * public class TreeNode {
+//  *     int val;
+//  *     TreeNode left;
+//  *     TreeNode right;
+//  *     TreeNode() {}
+//  *     TreeNode(int val) { this.val = val; }
+//  *     TreeNode(int val, TreeNode left, TreeNode right) {
+//  *         this.val = val;
+//  *         this.left = left;
+//  *         this.right = right;
+//  *     }
+//  * }
+
+class Solution {
+    public int tree_trav(TreeNode root, int high, int cou){
+        if(root!=null&&root.val>=high){
+            cou++;
+            high=root.val;
+        }
+        System.out.println(cou);
+        if(root!=null&&root.left==null&&root.right==null)
+            return cou;
+        if(root!=null&&root.left!=null){
+            cou=tree_trav(root.left,high,cou);
+        }
+        if(root!=null&&root.right!=null){
+            cou=tree_trav(root.right,high,cou);
+        }
+        return cou;
+    }
+    public int goodNodes(TreeNode root) {
+        int cou=1;
+        int high = root.val;
+        cou=tree_trav(root.left,high,cou);
+
+        cou=tree_trav(root.right,high,cou);
+        
+        return cou;
+    }
+    
+}
+
+-------------------------------------------------------------------------------
