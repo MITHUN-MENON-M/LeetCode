@@ -45,3 +45,46 @@ class Solution {
 }
 
 -------------------------------------------------------------------------------
+
+
+19. Remove Nth Node From End of List
+code:
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        if(head.next==null)
+            return null;
+        ListNode fn,mn;
+        int cou=0;
+        int tem;
+        fn = head;
+        mn=head;
+        while(fn!=null){
+            fn=fn.next;
+            cou++;
+        }
+        tem = cou-n;
+        for(int i=0;i<tem-1;i++){
+            mn=mn.next;
+        }
+        if(mn==head&&tem==0){
+            head=head.next;
+        }
+        
+        mn.next=mn.next.next;
+        
+
+        
+        return head;
+        
+    }
+}
