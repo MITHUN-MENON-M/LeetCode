@@ -656,3 +656,34 @@ public:
         return s;
     }
 };
+
+
+
+658. Find K Closest Elements
+code:
+import java.lang.Math;
+
+class Solution {
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        List<Integer> l2 = new ArrayList<Integer>();
+        List<Integer> l1 = new ArrayList<Integer>();
+        for(int i=0;i<arr.length;i++){
+            l1.add(Math.abs(arr[i]-x));
+        }
+        Collections.sort(l1);
+        System.out.println(l1);
+        for(int i=0;i<k;i++){
+            for(int j=0;j<arr.length;j++){
+                if(arr[j]!=2147483647&&Math.abs(arr[j]-x)==l1.get(i)){
+                    l2.add(arr[j]);
+                    arr[j] = 2147483647;
+                    break;
+                }
+            }
+            
+        }
+        System.out.println(l2);
+        Collections.sort(l2);
+        return l2;
+    }
+}
