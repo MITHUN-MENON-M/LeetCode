@@ -687,3 +687,84 @@ class Solution {
         return l2;
     }
 }
+
+
+
+2. Add Two Numbers
+code:
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode newlist = new ListNode();
+        ListNode n1 = l1,n2=l2,newl=newlist;
+        List<Integer> alist = new ArrayList<Integer>();
+        int valst=0,car=-1;
+        while(n1!=null||n2!=null){
+            // System.out.println(1);
+            if(n1!=null&&n2!=null){
+                valst=0;
+                if(car>0){
+                    car=-1;
+                    valst++;
+                }
+                valst = valst + n1.val+n2.val;
+            }
+            else if(n1!=null&&n2==null){
+                valst = 0;
+                if(car>0){
+                    car=-1;
+                    valst++;
+                }
+                valst = valst + n1.val;
+            }
+            else if(n1==null&&n2!=null){
+                valst = 0;
+                if(car>0){
+                    car=-1;
+                    valst++;
+                }
+                valst = valst +n2.val;
+            }
+            
+//             if(n1!=null&&n2!=null){
+//                 newl.next = new ListNode();
+//             }
+            
+            if(valst>9){
+                alist.add(valst%10);
+                // newl.val = valst%10;
+                car=1;
+            }
+            else{
+                alist.add(valst);
+                // newl.val = valst;
+            }
+            if(n1!=null)
+                n1=n1.next;
+            if(n2!=null)
+                n2=n2.next;
+        }
+        if(car==1){
+            alist.add(1);
+        }
+        System.out.println(alist);
+        for(int i=0;i<alist.size();i++){
+            newl.val = alist.get(i);
+            if(i!=alist.size()-1){
+            newl.next = new ListNode();
+            newl=newl.next;
+            }
+        }
+        
+        return newlist;
+    }
+}
