@@ -810,3 +810,33 @@ class Solution {
         return val;
     }
 }
+
+
+3. Longest Substring Without Repeating Characters
+code:
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        if(s.length()==1)
+            return 1;
+        String chk = "";
+        String str1 = "";
+        String str2 = "";
+        for(int i=0;i<s.length();i++){
+            for(int j=i;j<s.length();j++){
+                chk = "";
+                chk+=s.charAt(j);
+                if(!(str1.contains(chk)))
+                    str1+=s.charAt(j);
+                else{
+                    if(str1.length()>str2.length())
+                        str2 = str1;
+                    str1 = "";
+                    break;
+                }
+            }
+            // System.out.println(str1);
+            // System.out.println(str2);
+        }
+        return str2.length();
+    }
+}
