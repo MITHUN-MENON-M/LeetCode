@@ -660,7 +660,13 @@ public:
 
 
 658. Find K Closest Elements
+in this solution i iterated the whole array once and pushed the absolute difference between each array elements and the value x in a list, and sorted the list 
+so the smaller/least difference will the in the starting, and then the list is iterated till k th element and checked for each element in the array which element
+has absolute(element-x) in the list. As the array is sorted the this condition |a - x| == |b - x| and a < b will be valid as the least elements will only be
+considered.
+
 code:
+
 import java.lang.Math;
 
 class Solution {
@@ -691,6 +697,9 @@ class Solution {
 
 
 2. Add Two Numbers
+in this solution i added one - one node of each linked list and pushed it to a list. in the question its given that the value of a node is 0 <= Node.val <= 9
+so at most the sum will be 19(carry added) so i took the last digit of the sum and pushed it in the list and set the carry to 1 so in the next iteration the carry 1
+will be added to the sum value.
 code:
 /**
  * Definition for singly-linked list.
