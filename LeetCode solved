@@ -1003,3 +1003,67 @@ class Solution {
         return head;
     }
 }
+
+
+
+692. Top K Frequent Words
+code:
+import java.util.Arrays; 
+class Solution {
+    public List<String> topKFrequent(String[] words, int k) {
+        List<String> l1 = new ArrayList<String>();
+        int ind = -1;
+        Arrays.sort(words); 
+        // for (String string : words) 
+        //     System.out.print(string + " "); 
+        // System.out.println();
+        
+        int[] temp_arr = new int[words.length];
+        int[] temp_arr2 = new int[words.length];
+        int[] temp_arr3 = new int[words.length];
+        
+        for(int i=0;i<words.length;i++){
+            for(int j=i+1;j<words.length;j++){
+                if(words[i].equals(words[j])&&words[i]!="-0"){
+                    temp_arr[i]++;
+                    words[j] = "-0";
+                }
+            }
+        }
+        // for (String string : words) 
+        //     System.out.print(string + " "); 
+        // System.out.println();
+        for(int i=0;i<temp_arr.length;i++){
+            temp_arr2[i] = temp_arr[i];
+        }
+        // for(int i=0;i<temp_arr.length;i++){
+        //     System.out.println(temp_arr[i]);
+        // }
+        Arrays.sort(temp_arr2);
+        
+        for(int i=temp_arr2.length-1;i>=0;i--){
+            temp_arr3[temp_arr3.length-1-i] = temp_arr2[i];
+        }
+        System.out.println("temp_arr3");
+        // for(int i=0;i<temp_arr.length;i++){
+        //     System.out.println(temp_arr3[i]);
+        // }
+        for(int i=0;i<k;i++){
+            // System.out.println("i = "+i);
+            // ind = -1;
+            for(int j=0;j<temp_arr.length;j++){
+                if(temp_arr3[i]==temp_arr[j]&&temp_arr[j]!=-99&&words[j]!="-0"){
+                    ind = j;
+                    // System.out.println("ind = "+ind);
+                    temp_arr[j] = -99;
+                    break;
+                }
+            }
+            l1.add(words[ind]);
+        }
+        
+        
+        
+        return l1;
+    }
+}
