@@ -1067,3 +1067,46 @@ class Solution {
         return l1;
     }
 }
+
+
+
+11. Container With Most Water
+code:
+//brute force
+
+import java.lang.Math;
+class Solution {
+    public int maxArea(int[] height) {
+        int temp=0,themax=-1;
+        for(int i=0;i<height.length;i++){
+            for(int j=i+1;j<height.length;j++){
+                temp = (j-i)*(Math.min(height[i],height[j]));
+                if(temp>themax){
+                    themax = temp;
+                }
+            }
+        }
+        return themax;
+    }
+}
+
+
+//optimal
+
+import java.lang.Math;
+class Solution {
+    public int maxArea(int[] height) {
+        int i=0,j=height.length-1,area,res=0;
+        while(i<j){
+            area = (j-i)*(Math.min(height[i],height[j]));
+            res = Math.max(res,area);
+            if(height[i]<height[j])
+                i++;
+            else if(height[j]<height[i])
+                j--;
+            else
+                j--;
+        }
+        return res;
+    }
+}
