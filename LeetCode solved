@@ -1150,3 +1150,29 @@ class Solution {
         return false;
     }
 }
+
+//time complexity O(n) and space complexity O(1)
+
+class Solution {
+    public boolean arrayStringsAreEqual(String[] word1, String[] word2) {
+        int arrind1 = 0, arrind2 = 0,id1=0,id2=0;
+        while(arrind1<word1.length&&arrind2<word2.length){
+            if(word1[arrind1].charAt(id1)!=word2[arrind2].charAt(id2)){
+                return false;
+            }
+            id1++;
+            id2++;
+            if(id1==word1[arrind1].length()){
+                arrind1++;
+                id1=0;
+            }
+            if(id2==word2[arrind2].length()){
+                arrind2++;
+                id2=0;
+            }
+            
+        }
+        return arrind1==word1.length && arrind2==word2.length;
+        
+    }
+}
