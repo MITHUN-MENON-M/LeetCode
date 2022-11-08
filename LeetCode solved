@@ -1176,3 +1176,87 @@ class Solution {
         
     }
 }
+
+
+
+15. 3Sum
+//Brute Force approach:
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        int sum;
+        List<List<Integer>> lists = new ArrayList<>();
+        List<Integer> li = new ArrayList<>();
+        for(int i=0;i<nums.length;i++){
+            for(int j=i+1;j<nums.length;j++){
+                for(int k=j+1;k<nums.length;k++){
+                    sum=nums[i]+nums[j]+nums[k];
+                    if(sum==0){
+                        li.add(nums[i]);
+                        li.add(nums[j]);
+                        li.add(nums[k]);
+                        Collections.sort(li);
+                        if(!lists.contains(li))
+                            lists.add(li);
+                        li = new ArrayList<>();
+                    }
+                }
+            }
+        }
+        return lists;
+    }
+}
+
+
+//Better Approach:
+
+import java.util.*;
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        HashSet<List<Integer>> new_set = new HashSet<>();
+        int count;
+        List<Integer> li = new ArrayList<>();
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int i=0;i<nums.length;i++){
+            if(!map.containsKey(nums[i]))
+                map.put(nums[i],1);
+            else{
+                count = map.get(nums[i]);
+                count++;
+                map.put(nums[i],count);
+            }
+        }
+        for(int i=0;i<nums.length;i++){
+            count = map.get(nums[i]);
+            count--;
+            map.put(nums[i],count);
+            for(int j=i+1;j<nums.length;j++){
+                count = map.get(nums[j]);
+                count--;
+                map.put(nums[j],count);
+                // System.out.println(-1*(nums[i]+nums[j]));
+                if((map.containsKey(-1*(nums[i]+nums[j])))&&(map.get(-1*(nums[i]+nums[j]))!=0)){
+                    li = new ArrayList<>();
+                    li.add(nums[i]);
+                    li.add(nums[j]);
+                    li.add(-1*(nums[i]+nums[j]));
+                    Collections.sort(li);
+                    new_set.add(li);
+                    // System.out.println(li);
+                    
+                    // lists.add(li);
+                }
+                count = map.get(nums[j]);
+                count++;
+                map.put(nums[j],count);
+            }
+            count = map.get(nums[i]);
+            count++;
+            map.put(nums[i],count);
+        }
+        
+        List<List<Integer>> lists = new ArrayList<>(new_set);
+        return lists;
+    }
+}
