@@ -1260,3 +1260,89 @@ class Solution {
         return lists;
     }
 }
+
+
+
+
+1323. Maximum 69 Number
+
+class Solution {
+    public int maximum69Number (int num) {
+        int[] arr = new int[100000];
+        int[] arr2 = new int[100000];
+        int x = num,i=0,k=0,temp=0;
+        while(x>0){
+            arr[i] = x%10;
+            x/=10;
+            i++;
+        }
+        // System.out.println(i);
+        for(int j=i-1;j>=0;j--){
+            arr2[k] = arr[j];
+            k++;
+        }
+        for(int j=0;j<i;j++){
+            temp=0;
+            if(arr2[j]==6){
+                arr2[j]=9;
+                for(k=0;k<i;k++){
+                    temp=(temp*10)+arr2[k];
+                }
+                if(temp>num)
+                    num = temp;
+                arr2[j] = 6;
+            }
+            
+            
+        }
+        
+        
+        return num;
+    }
+}
+
+
+
+1544. Make The String Great
+
+class Solution {
+    public int chkbad(String s){
+        int flg = 0;
+        for(int i=1;i<s.length();i++){
+            if(((Character.toUpperCase(s.charAt(i-1))==s.charAt(i))||(Character.toUpperCase(s.charAt(i))==s.charAt(i-1)))&&((s.charAt(i-1))!=s.charAt(i))){
+                flg = 1;
+                System.out.println(i+" "+(i-1));
+            }
+        }
+        return flg;
+    }
+    public String makeGood(String s) {
+                if(s.length()==2){
+            if((Character.toUpperCase(s.charAt(0))==s.charAt(1))||(Character.toUpperCase(s.charAt(1))==s.charAt(0))){
+                return "";
+            }
+        }
+        if(s.equals(""))
+            return "";
+        int flg;
+        flg = chkbad(s);
+        while(flg==1){
+            System.out.println(flg);
+        for(int i=1;i<s.length();i++){
+            if(((Character.toUpperCase(s.charAt(i-1))==s.charAt(i))||(Character.toUpperCase(s.charAt(i))==s.charAt(i-1)))&&((s.charAt(i-1))!=s.charAt(i))){
+                s = s.substring(0,i-1)+s.substring(i+1,s.length());
+                // System.out.println("a");
+            }
+        }
+                    if(s.length()==2){
+            if((Character.toUpperCase(s.charAt(0))==s.charAt(1))||(Character.toUpperCase(s.charAt(1))==s.charAt(0))&&((s.charAt(0))!=s.charAt(1))){
+                return "";
+            }
+        }
+            System.out.println(s);
+            flg = chkbad(s);
+            // System.out.println(flg);
+    }
+        return s;
+    }
+}
