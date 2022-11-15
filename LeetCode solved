@@ -1393,3 +1393,33 @@ class Solution {
         return cou;
     }
 }
+
+
+
+1047. Remove All Adjacent Duplicates In String
+code:
+class Solution {
+    public String removeDuplicates(String s) {
+        String str = "";
+        char arr[] = new char[s.length()+1];
+        int i = 0;
+        for(int j=0;j<s.length();j++){
+            arr[j] = '0';
+        }
+        for(int j = 0;j<s.length();j++){
+            if(s.charAt(j)!=arr[i]){
+                i++;
+                // System.out.println(arr[i]+" "+s.charAt(j));
+                arr[i] = s.charAt(j);
+            }
+            else if(s.charAt(j)==arr[i]){
+                i--;
+            }
+        }
+        for(int j=1;j<=i;j++){
+            if(arr[j]!='0')
+                str+=arr[j];
+        }
+        return str;
+    }
+}
