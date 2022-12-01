@@ -1503,3 +1503,32 @@ class Solution {
         return false;
     }
 }
+
+
+1207. Unique Number of Occurrences
+
+import java.util.*;
+
+class Solution {
+    public boolean uniqueOccurrences(int[] arr) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int t = 0,count,count1=0;
+        for(int i=0;i<arr.length;i++){
+            if(!map.containsKey(arr[i])){
+                map.put(arr[i],1);
+            }
+            else{
+                t = map.get(arr[i]);
+                t++;
+                map.put(arr[i],t);
+            }
+        }
+        for (Map.Entry<Integer, Integer> e : map.entrySet())
+            count1++;
+        count = (int)map.values().stream().distinct().count();
+        
+        if(count1==count)
+            return true;
+        return false;
+    }
+}
